@@ -98,30 +98,62 @@ def num_mod_act(n):
     converts request string to output format like ->> 1000 to 1K
     """
     if is_int(n)[0]:
-        int_n = int(n)
+        if n[0] == '-':
+            add_minus = '-'
+            int_n = int(str(n[1:]))
 
-        for key, val in data_type.items():
-            if int(val.split('-')[0]) <= int_n < int(val.split('-')[1]):
-                if key != 'Z':
-                    int_k, int_val = key, str(float(int_n / int(val.split('-')[0])))+key
-                    return int_k, int_val
-                else:
-                    return key, int_n
+            for key, val in data_type.items():
+                if int(val.split('-')[0]) <= int_n < int(val.split('-')[1]):
+                    if key != 'Z':
+                        int_k, int_val = key, str(int_n / int(val.split('-')[0]))[:3] + key
+                        return int_k, add_minus + str(int_val)
+                    else:
+                        return key, add_minus + str(int_n)
+            else:
+                return 'No data to display, out of range !'
         else:
-            return 'No data to display, out of range !'
+            int_n = int(n)
+
+            for key, val in data_type.items():
+                if int(val.split('-')[0]) <= int_n < int(val.split('-')[1]):
+                    if key != 'Z':
+                        int_k, int_val = key, str(int_n / int(val.split('-')[0]))[:3] + key
+                        return int_k, int_val
+                    else:
+                        return key, int_n
+            else:
+                return 'No data to display, out of range !'
+
+
 
     elif is_float(n)[0]:
-        float_n = int(float(decimal_op(is_float(n))))
+        if n[0] == '-':
+            add_minus = '-'
+            float_n = int(float(str(decimal_op(is_float(n)))[1:]))
+            print(float_n)
 
-        for key, val in data_type.items():
-            if int(val.split('-')[0]) <= float_n < int(val.split('-')[1]):
-                if key != 'Z':
-                    int_k, int_val = key, str(float(float_n / int(val.split('-')[0]))) + key
-                    return int_k, int_val
-                else:
-                    return key, float_n
+            for key, val in data_type.items():
+                if int(val.split('-')[0]) <= float_n < int(val.split('-')[1]):
+                    if key != 'Z':
+                        int_k, int_val = key, str(float(float_n / int(val.split('-')[0])))[:3] + key
+                        return int_k, add_minus + str(int_val)
+                    else:
+                        return key, add_minus + str(float_n)
+            else:
+                return 'No data to display, out of range !'
         else:
-            return 'No data to display, out of range !'
+
+            float_n = int(float(decimal_op(is_float(n))))
+
+            for key, val in data_type.items():
+                if int(val.split('-')[0]) <= float_n < int(val.split('-')[1]):
+                    if key != 'Z':
+                        int_k, int_val = key, str(float(float_n / int(val.split('-')[0])))[:3] + key
+                        return int_k, int_val
+                    else:
+                        return key, float_n
+            else:
+                return 'No data to display, out of range !'
 
     else:
         return 'Calculation not required for that type !'
