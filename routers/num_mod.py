@@ -79,3 +79,32 @@ def check_type(n):
 
     else:
         return f'Int or Float required'
+
+
+
+data_type = {'Z': '0-1000',
+             'K': '1000-1000000',
+             'M': '1000000-1000000000',
+             'B': '1000000000-1000000000000',
+             'T': '1000000000000-1000000000000000'
+             }
+
+def num_mod_act(n):
+    """
+
+    :param n:
+    :return: Int to output format
+
+    converts request string to output format like ->> 1000 to 1K
+    """
+    int_n = int(n)
+
+    for key, val in data_type.items():
+        if int(val.split('-')[0]) <= int_n < int(val.split('-')[1]):
+            if key != 'Z':
+                int_k, int_val = key, str(int(int_n / int(val.split('-')[0]))) + key
+                return int_k, int_val
+            else:
+                return key, int_n
+    else:
+        return 'No data to display, out of range !'
