@@ -130,7 +130,7 @@ def num_mod_act(n):
     elif is_float(n)[0]:
         if n[0] == '-':
             add_minus = '-'
-            float_n = int(float(str(decimal_op(is_float(n)))[1:]))
+            float_n = float(str(decimal_op(is_float(n)))[1:])
 
             for key, val in data_type.items():
                 if int(val.split('-')[0]) <= float_n < int(val.split('-')[1]):
@@ -144,8 +144,8 @@ def num_mod_act(n):
                 return 'No data to display, out of range !'
         else:
 
-            float_n = int(float(decimal_op(is_float(n))))
-
+            float_n = float(decimal_op(is_float(n)))
+            print(float_n)
             for key, val in data_type.items():
                 if int(val.split('-')[0]) <= float_n < int(val.split('-')[1]):
                     if key != 'Z':

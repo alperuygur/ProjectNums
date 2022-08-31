@@ -1,5 +1,7 @@
-from fastapi import FastAPI
-from routers.num_mod import check_type, decimal_op, is_float, num_mod_act
+from fastapi import FastAPI, Request
+from routers.num_mod import check_type, num_mod_act
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 description = """
 ## Examples:
@@ -29,13 +31,15 @@ app: FastAPI = FastAPI(
 
 )
 
-@app.get('/')
-def root():
-    return {'Project Test'}
+templates = Jinja2Templates(directory='templates')
+
+@app.get('/', response_class=HTMLResponse)
+def root(request: Request):
+    return templates.TemplateResponse('home.html', {'request': request})
 
 
-@app.get('/numbers/{num}', tags=['numbers'])
-async def number(num: str):
-    return {"Input": check_type(num),
+@app.get('/numbers/{num}', tags=['numbers'], response_class=HTMLResponse)
+async def number(request: Request, num: str):
+    return templates.TemplateResponse('numbers.html', {'request': request, "Input": check_type(num),
             "Output": num_mod_act(num)
-            }   # for testing(decimal_op), num_mod_act() remove later
+            })
