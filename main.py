@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from routers.num_mod import check_type, decimal_op, is_float, num_mod_act
 
-app = FastAPI()
+app: FastAPI = FastAPI()
 
 
 @app.get('/')
