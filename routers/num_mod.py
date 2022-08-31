@@ -86,7 +86,7 @@ data_type = {'Z': '0-1000',
              'K': '1000-1000000',
              'M': '1000000-1000000000',
              'B': '1000000000-1000000000000',
-             'T': '1000000000000-1000000000000000'
+             'T': '1000000000000-1000000000000001'
              }
 
 def num_mod_act(n):
@@ -104,10 +104,12 @@ def num_mod_act(n):
             for key, val in data_type.items():
                 if int(val.split('-')[0]) <= int_n < int(val.split('-')[1]):
                     if key != 'Z':
-                        int_val = str(float(int_n / int(val.split('-')[0])))[:3] + key
-                        return add_minus + str(int_val.replace('.', '')) if int_val[-2] == '.' else add_minus + str(int_val)
+                        int_val = str(float(int_n / int(val.split('-')[0])))[:3]
+                        return add_minus + int_val.rstrip('.0') + key if '.0' in int_val else add_minus + int_val.rstrip('.') + key
+
                     else:
                         return add_minus + str(int_n)
+
             else:
                 return 'No data to display, out of range !'
         else:
@@ -116,10 +118,11 @@ def num_mod_act(n):
             for key, val in data_type.items():
                 if int(val.split('-')[0]) <= int_n < int(val.split('-')[1]):
                     if key != 'Z':
-                        int_val = str(float(int_n / int(val.split('-')[0])))[:3] + key
-                        return int_val.replace('.', '') if int_val[-2] == '.' else int_val
+                        int_val = str(float(int_n / int(val.split('-')[0])))[:3]
+                        return int_val.rstrip('.0') + key if '.0' in int_val else int_val.rstrip('.') + key
+
                     else:
-                        return int_n
+                        return str(int_n)
             else:
                 return 'No data to display, out of range !'
 
@@ -132,8 +135,9 @@ def num_mod_act(n):
             for key, val in data_type.items():
                 if int(val.split('-')[0]) <= float_n < int(val.split('-')[1]):
                     if key != 'Z':
-                        int_val = str(float(float_n / int(val.split('-')[0])))[:3] + key
-                        return add_minus + str(int_val.replace('.', '')) if int_val[-2] == '.' else add_minus + str(int_val)
+                        int_val = str(float(float_n / int(val.split('-')[0])))[:3]
+                        return add_minus + int_val.rstrip('.0') + key if '.0' in int_val else add_minus + int_val.rstrip('.') + key
+
                     else:
                         return add_minus + str(float_n)
             else:
@@ -145,10 +149,10 @@ def num_mod_act(n):
             for key, val in data_type.items():
                 if int(val.split('-')[0]) <= float_n < int(val.split('-')[1]):
                     if key != 'Z':
-                        int_val = str(float(float_n / int(val.split('-')[0])))[:3] + key
-                        return int_val.replace('.', '') if int_val[-2] == '.' else int_val
+                        int_val = str(float(float_n / int(val.split('-')[0])))[:3]
+                        return int_val.rstrip('.0') + key if '.0' in int_val else int_val.rstrip('.') + key
                     else:
-                        return float_n
+                        return str(float_n)
             else:
                 return 'No data to display, out of range !'
 
