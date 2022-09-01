@@ -10,6 +10,7 @@ pytest = "*"
 requests = "*"
 jinja2 = "*"
 python-multipart = "*"
+gunicorn = "*"
 
 [dev-packages]
 

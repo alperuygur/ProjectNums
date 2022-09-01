@@ -41,10 +41,8 @@ def root(request: Request):
 
 @app.get('/numbers/', tags=['numbers'], response_class=HTMLResponse)
 async def get_number(request: Request):
-
     return templates.TemplateResponse('numbers.html', {'request': request})
 
 @app.post('/numbers/', tags=['numbers'], response_class=HTMLResponse)
 async def post_number(request: Request, num: str = Form()):
-    print(num)
     return templates.TemplateResponse('numbers.html', {'request': request, "Input": check_type(num), "Output": num_mod_act(num), 'num': num})
