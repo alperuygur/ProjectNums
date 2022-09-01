@@ -1,4 +1,4 @@
-# ProjectNums
+# ProjectNums - with Python Fastapi
 Converts given number to short form.
 
 
