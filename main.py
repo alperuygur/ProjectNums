@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from routers.num_mod import check_type, num_mod_act
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -33,13 +33,18 @@ app: FastAPI = FastAPI(
 
 templates = Jinja2Templates(directory='templates')
 
+
 @app.get('/', response_class=HTMLResponse)
 def root(request: Request):
     return templates.TemplateResponse('home.html', {'request': request})
 
 
-@app.get('/numbers/{num}', tags=['numbers'], response_class=HTMLResponse)
-async def number(request: Request, num: str):
-    return templates.TemplateResponse('numbers.html', {'request': request, "Input": check_type(num),
-            "Output": num_mod_act(num)
-            })
+@app.get('/numbers/', tags=['numbers'], response_class=HTMLResponse)
+async def get_number(request: Request):
+
+    return templates.TemplateResponse('numbers.html', {'request': request})
+
+@app.post('/numbers/', tags=['numbers'], response_class=HTMLResponse)
+async def post_number(request: Request, num: str = Form()):
+    print(num)
+    return templates.TemplateResponse('numbers.html', {'request': request, "Input": check_type(num), "Output": num_mod_act(num), 'num': num})

@@ -9,6 +9,7 @@ uvicorn = {extras = ["standard"], version = "*"}
 pytest = "*"
 requests = "*"
 jinja2 = "*"
+python-multipart = "*"
 
 [dev-packages]
 
